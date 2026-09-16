@@ -1,11 +1,21 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
 import streamlit as st
 from langchain_groq import ChatGroq
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import MemorySaver
+
+
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+    if "SERPER_API_KEY" in st.secrets:
+        os.environ["SERPER_API_KEY"] = st.secrets["SERPER_API_KEY"]
+except FileNotFoundError:
+    pass  # no secrets.toml — fine locally, .env already loaded above
 
 # ---- Page config 
 st.set_page_config(
