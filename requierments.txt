@@ -1,6 +1,7 @@
 langchain
 langchain-openai
 dotenv
+python-dotenv
 langchain-google-genai
 langchain-anthropic
 streamlit
