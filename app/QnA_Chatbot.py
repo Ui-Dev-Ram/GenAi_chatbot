@@ -143,4 +143,4 @@ if query:
                         message += text
                         space.markdown(message)
 
-                st.session_state.history.append({"role": "ai", "content": message})
+                st.session_state.history.append({"content": message})
