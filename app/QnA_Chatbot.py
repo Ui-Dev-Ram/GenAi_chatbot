@@ -123,24 +123,22 @@ query = st.chat_input("What's on your mind?")
 if query:
     st.chat_message("user").markdown(query)
     st.session_state.history.append({"role": "user", "content": query})
-   
-    res = agent.stream(
-        {"messages": [{"role": "user", "content": query}]},
-        {"configurable": {"thread_id": "1"}},
-        stream_mode="messages",
-    )
-    ai_container = st.chat_message("ai")
-    with ai_container:
-        with st.spinner("Thum‑ja‑lo‑d‑ho‑ra‑ha‑he!"):
-            with ai_container:
+    with st.chat_message("ai"):
+        with st.spinner("Thinking..."):
+            try:
+                res = agent.stream(
+                    {"messages": [{"role": "user", "content": query}]},
+                    {"configurable": {"thread_id": "1"}},
+                    stream_mode="messages",
+                )
                 space = st.empty()
                 message = ""
-
                 for chunk in res:
                     piece = chunk[0]
                     text = piece.content if hasattr(piece, "content") else str(piece)
                     if text:
                         message += text
                         space.markdown(message)
-
-                st.session_state.history.append({"content": message})
+                st.session_state.history.append({"role": "ai", "content": message})
+            except Exception as e:
+                st.error(f"Something went wrong: {e}")
