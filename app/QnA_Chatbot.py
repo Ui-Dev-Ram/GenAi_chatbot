@@ -124,7 +124,7 @@ if query:
     st.chat_message("user").markdown(query)
     st.session_state.history.append({"role": "user", "content": query})
     with st.chat_message("ai"):
-        with st.spinner("Thum‑ja‑lo‑d‑ho‑ra‑ha‑he!"):
+        with st.spinner("Thum‑ja‑load‑ho‑ra‑ha‑he!"):
             try:
                 res = agent.stream(
                     {"messages": [{"role": "user", "content": query}]},
